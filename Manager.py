@@ -65,6 +65,8 @@ def initWindow(root):
     global accentW
     accentW = tkinter.Entry(generalFrame)
     accentW.pack()
+    newFolder = tkinter.Button(generalFrame, text="add folder", command=addFolder)
+    newFolder.pack()
     newfile = tkinter.Button(generalFrame, text="add file", command=addFile)
     newfile.pack()
     deletefile = tkinter.Button(generalFrame, text="delete file", command=delFile)
@@ -156,6 +158,14 @@ def addFile():
     hashName = ntpath.basename(hashFilePath)
     global curFile
     curFile.addFile(File(curFile, fileName, hashName, hashStr))
+    newFile(curFile)
+
+
+def addFolder():
+    global curFile
+    global accentW
+    name = accentW.get()
+    curFile.addFile(File(curFile, name, "", ""))
     newFile(curFile)
 
 
