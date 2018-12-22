@@ -1,4 +1,3 @@
-#!/usr/bin/python
 import tkinter
 import pickle
 import os
@@ -148,12 +147,13 @@ def delFile():
 def addFile():
     filePath = filedialog.askopenfilename(title="select file")
     hashFilePath = filedialog.askopenfilename(title="select file hash")
-    f = open(hashFilePath, "r")
-    lines = []
-    for line in f:
-        lines.append(line)
-    f.close()
-    hashStr = (lines[0][lines[0].index(": ") + 2:]).strip(os.linesep) + lines[1].strip(' ').strip(os.linesep)
+    hashStr = None
+    with open(hashFilePath, "r") as f:
+        for line in f:
+            if hashStr == None:
+                line = line[line.index(": ") + 2:]
+                hashStr = ''
+            hashStr += line.strip() + " "
     fileName = ntpath.basename(filePath)
     hashName = ntpath.basename(hashFilePath)
     global curFile
